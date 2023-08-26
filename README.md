@@ -75,3 +75,29 @@ Diseño y construcción del servicio.
 Calidad de Código.
 
 Resultados correctos en los test.
+
+
+----
+
+# Contrato
+
+## Get prices:
+
+Endpoint para obtener el precio de un producto por id, brand id y application date. Retorna los datos proporcionados en conjunto con la lista de precio a aplicar y el precio final.
+
+### Request:
+ 
+  ```
+ http://localhost:8080/getPrice?application_date=${application_date}&product_id=${product_id}&brand_id=${brand_id}
+ ```
+
+### Response:
+ ```
+{
+    "product_id": 35455,
+    "brand_id": 1,
+    "price_list": 1,
+    "application_date": "2020-03-04 00:50:00",
+    "price": 35.50
+}
+ ```
