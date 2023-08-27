@@ -1,0 +1,99 @@
+openapi: 3.0.2
+info:
+  title: Data Price Finder API
+  version: 1.0.0
+  description: Project for Capitole
+servers:
+  - url: /price-finder
+    description: ''
+paths:
+  /price:
+    get:
+      parameters:
+        - examples:
+            Application Date:
+              value: '2023-08-24T00:00:00'
+          name: application_date
+          description: Fecha de aplicacion
+          schema:
+            format: datetime
+            type: string
+          in: query
+          required: true
+        - examples:
+            Product ID:
+              value: 35455
+          name: product_id
+          description: Identificador del producto
+          schema:
+            format: int32
+            type: integer
+          in: query
+          required: true
+        - examples:
+          Brand ID:
+            value: 1
+          name: brand_id
+          description: Identificador de cadena
+          schema:
+            format: int32
+            type: integer
+          in: query
+          required: true
+      responses:
+        default:
+          schema:
+            $ref: '#/components/schemas/PriceResponse'
+          description: Price found
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceResponse'
+          description: Price found
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                Example:
+                  value: Price not found
+          description: When the api not found the request price
+      operationId: getPrice
+      summary: Return final price to apply.
+
+components:
+  schemas:
+    PriceResponse:
+      title: Response of get price
+      description: ''
+      required:
+        - product_id
+        - brand_id
+        - price_list
+        - application_date
+        - price
+      type: object
+      properties:
+        product_id:
+          format: int32
+          type: integer
+        brand_id:
+          format: int32
+          type: integer
+        price_list:
+          format: int32
+          type: integer
+        application_date:
+          format: datetime
+          type: string
+        price:
+          format: float
+          type: number
+      example:
+        product_id: 35455
+        brand_id: 1
+        price_list: 3
+        application_date: '2020-06-15T06.00.00'
+        price: 30.50

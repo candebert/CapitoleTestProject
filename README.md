@@ -81,6 +81,8 @@ Resultados correctos en los test.
 
 # Contrato
 
+http://localhost:8080/swagger-ui/index.html
+
 ## Get prices:
 
 Endpoint para obtener el precio de un producto por id, brand id y application date. Retorna los datos proporcionados en conjunto con la lista de precio a aplicar y el precio final.
