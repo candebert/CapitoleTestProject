@@ -12,14 +12,14 @@ public class PriceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID;
-    private Date START_DATE;
-    private Date END_DATE;
-    private  int BRAND_ID;
-    private String CURR;
-    private Double PRICE;
-    private int PRICE_LIST;
-    private int PRIORITY;
-    private int PRODUCT_ID;
+    private final Date START_DATE;
+    private final Date END_DATE;
+    private final int BRAND_ID;
+    private final String CURR;
+    private final Double PRICE;
+    private final int PRICE_LIST;
+    private final int PRIORITY;
+    private final int PRODUCT_ID;
 
     public PriceEntity(
             Date START_DATE,
@@ -49,6 +49,18 @@ public class PriceEntity {
                 this.PRICE_LIST,
                 this.PRODUCT_ID
         );
+    }
+
+    public Date getSTART_DATE() {
+        return START_DATE;
+    }
+
+    public Date getEND_DATE() {
+        return END_DATE;
+    }
+
+    public Double getPRICE() {
+        return PRICE;
     }
 
     public int getPRIORITY() {

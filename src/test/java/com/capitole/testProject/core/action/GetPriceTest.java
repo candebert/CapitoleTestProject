@@ -20,8 +20,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 class GetPriceTest {
 
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss");
-    private int productId = 35455, brandId = 1;
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss");
 
     private GetPrice getPrice;
     @Mock
@@ -35,6 +34,7 @@ class GetPriceTest {
     @Test
     void whenCallGetPriceThenReturnCorrectPrice() throws ParseException {
         Date applicationDate = simpleDateFormat.parse("2020-06-14 00.00.00");
+        int productId = 35455, brandId = 1;
         PriceResult expectedPriceResult = new
                 PriceResult(applicationDate, brandId, 35.5, 1, productId);
         when(priceRepository.getPriceBy(applicationDate, brandId, productId)).thenReturn(

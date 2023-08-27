@@ -2,15 +2,17 @@ package com.capitole.testProject.core.infrastructure;
 
 import com.capitole.testProject.core.infrastructure.exceptions.PriceNotFoundException;
 import com.capitole.testProject.core.infrastructure.resources.PriceEntity;
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-@Repository
+@Component
 public class PriceRepositoryImpl implements PriceRepository {
 
+    @Autowired
     private final JpaPriceRepository jpaPriceRepository;
 
     public PriceRepositoryImpl(JpaPriceRepository jpaPriceRepository) {

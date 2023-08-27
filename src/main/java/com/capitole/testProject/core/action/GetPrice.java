@@ -9,7 +9,7 @@ import java.util.Date;
 @Service
 public class GetPrice {
 
-    private PriceRepository priceRepository;
+    private final PriceRepository priceRepository;
 
     public GetPrice(PriceRepository priceRepository) {
         this.priceRepository = priceRepository;
