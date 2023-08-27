@@ -1,7 +1,9 @@
 package com.capitole.testProject.core.infrastructure;
 
+import com.capitole.testProject.core.infrastructure.exceptions.PriceNotFoundException;
 import com.capitole.testProject.core.infrastructure.resources.PriceEntity;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.runner.RunWith;
@@ -43,7 +45,7 @@ class PriceRepositoryImplTest {
         "2020-06-15 10.00.00,30.5",
         "2020-06-16 21.00.00,38.95",
     }, delimiter = ',')
-    void dummy(String stringApplicationDate, Double expectedPrice) throws ParseException {
+    void whenCallToGetPriceThenReturnCorrectExpectedPrice(String stringApplicationDate, Double expectedPrice) throws ParseException {
         Date applicationDate = simpleDateFormat.parse(stringApplicationDate);
         when(jpaPriceRepository.getPriceBy(applicationDate, brandId, productId))
                 .thenReturn(getJpaRepositoryResponse(applicationDate));
@@ -51,6 +53,16 @@ class PriceRepositoryImplTest {
         PriceEntity priceEntityResponse = priceRepository.getPriceBy(applicationDate, brandId, productId);
 
 		assertEquals(priceEntityResponse.getPRICE(), expectedPrice);
+    }
+
+    @Test
+    void whenCallToGetPriceWithDateOutOfValuesThenReturnPriceNotFoundException() throws ParseException {
+        Date applicationDate = simpleDateFormat.parse("2023-06-14 10.00.00");
+        List<PriceEntity> emptyListPriceEntities = new ArrayList<>();
+        when(jpaPriceRepository.getPriceBy(applicationDate, brandId, productId))
+                .thenReturn(emptyListPriceEntities);
+
+        assertThrows(PriceNotFoundException.class,() -> priceRepository.getPriceBy(applicationDate, brandId, productId));
     }
 
     private List<PriceEntity> getJpaRepositoryResponse(Date applicationDate) throws ParseException {
