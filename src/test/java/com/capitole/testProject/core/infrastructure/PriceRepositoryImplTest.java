@@ -46,22 +46,27 @@ class PriceRepositoryImplTest {
         "2020-06-16 21.00.00,38.95",
     }, delimiter = ',')
     void whenCallToGetPriceThenReturnCorrectExpectedPrice(String stringApplicationDate, Double expectedPrice) throws ParseException {
+        //Arrange
         Date applicationDate = simpleDateFormat.parse(stringApplicationDate);
         when(jpaPriceRepository.getPriceBy(applicationDate, brandId, productId))
                 .thenReturn(getJpaRepositoryResponse(applicationDate));
 
+        //Act
         PriceEntity priceEntityResponse = priceRepository.getPriceBy(applicationDate, brandId, productId);
 
+        //Assert
 		assertEquals(priceEntityResponse.getPRICE(), expectedPrice);
     }
 
     @Test
     void whenCallToGetPriceWithDateOutOfValuesThenReturnPriceNotFoundException() throws ParseException {
+        //Arrange
         Date applicationDate = simpleDateFormat.parse("2023-06-14 10.00.00");
         List<PriceEntity> emptyListPriceEntities = new ArrayList<>();
         when(jpaPriceRepository.getPriceBy(applicationDate, brandId, productId))
                 .thenReturn(emptyListPriceEntities);
 
+        //Act & Assert
         assertThrows(PriceNotFoundException.class,() -> priceRepository.getPriceBy(applicationDate, brandId, productId));
     }
 

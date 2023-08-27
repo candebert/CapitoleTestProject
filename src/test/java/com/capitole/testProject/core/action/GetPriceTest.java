@@ -33,24 +33,30 @@ class GetPriceTest {
 
     @Test
     void whenCallGetPriceThenReturnCorrectPrice() throws ParseException {
+        //Arrange
         Date applicationDate = simpleDateFormat.parse("2020-06-14 00.00.00");
         int productId = 35455, brandId = 1;
-        PriceResult expectedPriceResult = new
-                PriceResult(applicationDate, brandId, 35.5, 1, productId);
-        when(priceRepository.getPriceBy(applicationDate, brandId, productId)).thenReturn(
-                new PriceEntity(
-                        simpleDateFormat.parse("2020-06-14 00.00.00"),
-                        simpleDateFormat.parse("2020-12-31 23.59.59"),
-                        brandId,
-                        "EUR",
-                        35.5,
-                        1,
-                        1,
-                        productId
-                ));
+        PriceResult expectedPriceResult = new PriceResult(applicationDate, brandId, 35.5, 1, productId);
+        when(priceRepository.getPriceBy(applicationDate, brandId, productId))
+                .thenReturn(getPriceEntity(brandId, productId));
 
+        //Act
         PriceResult result = getPrice.invoke(applicationDate, productId, brandId);
 
+        //Assert
         assert(expectedPriceResult).equals(result);
+    }
+
+    private PriceEntity getPriceEntity(int brandId, int productId) throws ParseException {
+        return new PriceEntity(
+                simpleDateFormat.parse("2020-06-14 00.00.00"),
+                simpleDateFormat.parse("2020-12-31 23.59.59"),
+                brandId,
+                "EUR",
+                35.5,
+                1,
+                1,
+                productId
+        );
     }
 }

@@ -7,7 +7,6 @@ class Repositories {
 
     private final PriceRepositoryImpl priceRepositoryImpl;
 
-
     public Repositories(PriceRepositoryImpl priceRepositoryImpl) {
         this.priceRepositoryImpl = priceRepositoryImpl;
     }
