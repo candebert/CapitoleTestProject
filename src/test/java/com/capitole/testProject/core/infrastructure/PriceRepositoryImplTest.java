@@ -28,11 +28,12 @@ class PriceRepositoryImplTest {
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss");
     private final int productId = 35455, brandId = 1;
     private PriceRepositoryImpl priceRepository;
+    private final List<PriceEntity> priceEntities = getPriceEntitiesList();
 
     @Mock
     private JpaPriceRepository jpaPriceRepository;
 
-    @BeforeEach
+	@BeforeEach
     public void setUp() {
         priceRepository = new PriceRepositoryImpl(jpaPriceRepository);
     }
@@ -71,6 +72,13 @@ class PriceRepositoryImplTest {
     }
 
     private List<PriceEntity> getJpaRepositoryResponse(Date applicationDate) throws ParseException {
+        return priceEntities.stream()
+                .filter(price -> price.getSTART_DATE().compareTo(applicationDate) <= 0
+                        && price.getEND_DATE().compareTo(applicationDate) >= 0)
+                .collect(Collectors.toList());
+    }
+
+    private List<PriceEntity> getPriceEntitiesList() {
         List<PriceEntity> priceEntities = new ArrayList<>();
         priceEntities.add(
                 getPriceEntity("2020-06-14 00.00.00", "2020-12-31 23.59.59", 1, 35.5, 0)
@@ -84,11 +92,7 @@ class PriceRepositoryImplTest {
         priceEntities.add(
                 getPriceEntity("2020-06-15 16.00.00", "2020-12-31 23.59.59", 4, 38.95, 1)
         );
-
-        return priceEntities.stream()
-                .filter(price -> price.getSTART_DATE().compareTo(applicationDate) <= 0
-                        && price.getEND_DATE().compareTo(applicationDate) >= 0)
-                .collect(Collectors.toList());
+        return priceEntities;
     }
 
     private PriceEntity getPriceEntity(
@@ -97,17 +101,21 @@ class PriceRepositoryImplTest {
             int priceList,
             Double price,
             int priority
-    ) throws ParseException {
-        return new PriceEntity(
-                simpleDateFormat.parse(startDate),
-                simpleDateFormat.parse(endDate),
-                brandId,
-                "EUR",
-                price,
-                priceList,
-                priority,
-                productId
-        );
+    ) {
+        try {
+            return new PriceEntity(
+                    simpleDateFormat.parse(startDate),
+                    simpleDateFormat.parse(endDate),
+                    brandId,
+                    "EUR",
+                    price,
+                    priceList,
+                    priority,
+                    productId
+            );
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
