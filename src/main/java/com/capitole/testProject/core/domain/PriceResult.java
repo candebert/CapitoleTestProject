@@ -23,8 +23,7 @@ public class PriceResult {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PriceResult)) return false;
-        PriceResult that = (PriceResult) o;
+        if (!(o instanceof PriceResult that)) return false;
         return brandId == that.brandId &&
                 price.equals(that.price) &&
                 priceList == that.priceList &&

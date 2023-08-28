@@ -1,7 +1,5 @@
 package com.capitole.testProject.http.contract;
 
-import com.capitole.testProject.core.domain.PriceResult;
-
 import java.util.Date;
 
 public class PriceResultContract {
