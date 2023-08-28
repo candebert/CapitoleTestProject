@@ -4,9 +4,12 @@ import com.capitole.testProject.core.domain.PriceResult;
 import com.capitole.testProject.core.infrastructure.exception.PriceNotFoundException;
 import com.capitole.testProject.http.exception.InvalidDateFormat;
 import com.capitole.testProject.http.provider.Actions;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +27,8 @@ public class PriceHandler {
 		this.actions = actions;
 	}
 
-	@GetMapping("/price-finder/price")
+	@Operation(operationId = "getPrice")
+	@GetMapping(path = "/price-finder/price", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getPrice(
 			@RequestParam String application_date,
 			@RequestParam int product_id,
@@ -34,7 +38,6 @@ public class PriceHandler {
 		try {
 			Date parsedDate = validateDate(application_date, dateFormat);
 
-			PriceResult price = actions.getPrice().invoke(parsedDate, brand_id, product_id);
 			PriceResult price = actions.getPrice().invoke(parsedDate, product_id, brand_id);
 			return ResponseEntity.ok(price.toContract());
 		} catch (InvalidDateFormat invalidDateFormat) {
