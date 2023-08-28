@@ -35,6 +35,7 @@ public class PriceHandler {
 			Date parsedDate = validateDate(application_date, dateFormat);
 
 			PriceResult price = actions.getPrice().invoke(parsedDate, brand_id, product_id);
+			PriceResult price = actions.getPrice().invoke(parsedDate, product_id, brand_id);
 			return ResponseEntity.ok(price.toContract());
 		} catch (InvalidDateFormat invalidDateFormat) {
 			return new ResponseEntity<>(invalidDateFormat.getMessage(), invalidDateFormat.getStatus());

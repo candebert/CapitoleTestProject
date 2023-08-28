@@ -6,5 +6,5 @@ import java.util.Date;
 
 public interface PriceRepository {
 
-    PriceEntity getPriceBy(Date applicationDate, int brandId, int productId);
+    PriceEntity getPriceBy(Date applicationDate, int productId, int brandId);
 }

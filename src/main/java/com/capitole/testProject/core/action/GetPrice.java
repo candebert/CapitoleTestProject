@@ -16,6 +16,6 @@ public class GetPrice {
     }
 
     public PriceResult invoke(Date applicationDate, int productId, int brandId) {
-        return priceRepository.getPriceBy(applicationDate, brandId, productId).getResource(applicationDate);
+        return priceRepository.getPriceBy(applicationDate, productId, brandId).getResource(applicationDate);
     }
 }
