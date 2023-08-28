@@ -19,4 +19,43 @@ public class PriceResultContract {
 		this.product_id = product_id;
 	}
 
+	public Date getApplication_date() {
+		return application_date;
+	}
+
+	public void setApplication_date(Date application_date) {
+		this.application_date = application_date;
+	}
+
+	public int getBrand_id() {
+		return brand_id;
+	}
+
+	public void setBrand_id(int brand_id) {
+		this.brand_id = brand_id;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public int getPrice_list() {
+		return price_list;
+	}
+
+	public void setPrice_list(int price_list) {
+		this.price_list = price_list;
+	}
+
+	public int getProduct_id() {
+		return product_id;
+	}
+
+	public void setProduct_id(int product_id) {
+		this.product_id = product_id;
+	}
 }
