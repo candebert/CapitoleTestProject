@@ -1,5 +1,7 @@
 package com.capitole.testProject.core.domain;
 
+import com.capitole.testProject.http.contract.PriceResultContract;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -33,5 +35,15 @@ public class PriceResult {
     @Override
     public int hashCode() { return Objects.hash(applicationDate, brandId, price, priceList, productId); }
 
+
+    public PriceResultContract toContract() {
+        return new PriceResultContract(
+            this.applicationDate,
+            this.brandId,
+            this.price,
+            this.priceList,
+            this.productId
+        );
+    }
 }
 

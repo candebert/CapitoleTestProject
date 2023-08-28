@@ -1,6 +1,6 @@
 package com.capitole.testProject.core.infrastructure;
 
-import com.capitole.testProject.core.infrastructure.exceptions.PriceNotFoundException;
+import com.capitole.testProject.core.infrastructure.exception.PriceNotFoundException;
 import com.capitole.testProject.core.infrastructure.resources.PriceEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -71,7 +71,7 @@ class PriceRepositoryImplTest {
         assertThrows(PriceNotFoundException.class,() -> priceRepository.getPriceBy(applicationDate, brandId, productId));
     }
 
-    private List<PriceEntity> getJpaRepositoryResponse(Date applicationDate) throws ParseException {
+    private List<PriceEntity> getJpaRepositoryResponse(Date applicationDate) {
         return priceEntities.stream()
                 .filter(price -> price.getSTART_DATE().compareTo(applicationDate) <= 0
                         && price.getEND_DATE().compareTo(applicationDate) >= 0)

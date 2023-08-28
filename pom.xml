@@ -61,7 +61,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	<repositories>
+	<instanceRepositories>
 		<repository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
@@ -78,7 +78,7 @@
 				<enabled>false</enabled>
 			</releases>
 		</repository>
-	</repositories>
+	</instanceRepositories>
 	<pluginRepositories>
 		<pluginRepository>
 			<id>spring-milestones</id>

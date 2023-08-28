@@ -2,17 +2,19 @@ package com.capitole.testProject.http.provider;
 
 import com.capitole.testProject.core.action.GetPrice;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-class Actions {
+@Component
+public class Actions {
 
-    private final Repositories repositories;
+    private final InstanceRepositories instanceRepositories;
 
     @Autowired
-    public Actions(Repositories repositories) {
-        this.repositories = repositories;
+    public Actions(InstanceRepositories instanceRepositories) {
+        this.instanceRepositories = instanceRepositories;
     }
 
-    GetPrice getPrice() {
-        return new GetPrice(repositories.priceRepository());
+    public GetPrice getPrice() {
+        return new GetPrice(instanceRepositories.priceRepository());
     }
 }

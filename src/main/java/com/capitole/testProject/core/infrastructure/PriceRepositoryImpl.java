@@ -1,6 +1,6 @@
 package com.capitole.testProject.core.infrastructure;
 
-import com.capitole.testProject.core.infrastructure.exceptions.PriceNotFoundException;
+import com.capitole.testProject.core.infrastructure.exception.PriceNotFoundException;
 import com.capitole.testProject.core.infrastructure.resources.PriceEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
