@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,11 +50,11 @@ class PriceRepositoryImplTest {
     void whenCallToGetPriceThenReturnCorrectExpectedPrice(String stringApplicationDate, Double expectedPrice) throws ParseException {
         //Arrange
         Date applicationDate = simpleDateFormat.parse(stringApplicationDate);
-        when(jpaPriceRepository.getPriceBy(applicationDate, brandId, productId))
+        when(jpaPriceRepository.getPriceBy(stringApplicationDate, productId, brandId))
                 .thenReturn(getJpaRepositoryResponse(applicationDate));
 
         //Act
-        PriceEntity priceEntityResponse = priceRepository.getPriceBy(applicationDate, brandId, productId);
+        PriceEntity priceEntityResponse = priceRepository.getPriceBy(applicationDate, productId, brandId);
 
         //Assert
 		assertEquals(priceEntityResponse.getPRICE(), expectedPrice);
@@ -62,13 +63,14 @@ class PriceRepositoryImplTest {
     @Test
     void whenCallToGetPriceWithDateOutOfValuesThenReturnPriceNotFoundException() throws ParseException {
         //Arrange
-        Date applicationDate = simpleDateFormat.parse("2023-06-14 10.00.00");
+        String stringDate = "2023-06-14 10.00.00";
+        Date applicationDate = simpleDateFormat.parse(stringDate);
         List<PriceEntity> emptyListPriceEntities = new ArrayList<>();
-        when(jpaPriceRepository.getPriceBy(applicationDate, brandId, productId))
+        when(jpaPriceRepository.getPriceBy(stringDate, productId, brandId))
                 .thenReturn(emptyListPriceEntities);
 
         //Act & Assert
-        assertThrows(PriceNotFoundException.class,() -> priceRepository.getPriceBy(applicationDate, brandId, productId));
+        assertThrows(PriceNotFoundException.class,() -> priceRepository.getPriceBy(applicationDate, productId, brandId));
     }
 
     private List<PriceEntity> getJpaRepositoryResponse(Date applicationDate) {
@@ -104,8 +106,9 @@ class PriceRepositoryImplTest {
     ) {
         try {
             return new PriceEntity(
-                    simpleDateFormat.parse(startDate),
-                    simpleDateFormat.parse(endDate),
+                    1,
+                    new Timestamp(simpleDateFormat.parse(startDate).getTime()),
+                    new Timestamp(simpleDateFormat.parse(endDate).getTime()),
                     brandId,
                     "EUR",
                     price,

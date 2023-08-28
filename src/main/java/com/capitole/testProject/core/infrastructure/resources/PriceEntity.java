@@ -3,6 +3,7 @@ package com.capitole.testProject.core.infrastructure.resources;
 import com.capitole.testProject.core.domain.PriceResult;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -12,18 +13,22 @@ public class PriceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID;
-    private final Date START_DATE;
-    private final Date END_DATE;
-    private final int BRAND_ID;
-    private final String CURR;
-    private final Double PRICE;
-    private final int PRICE_LIST;
-    private final int PRIORITY;
-    private final int PRODUCT_ID;
+    private Timestamp START_DATE;
+    private Timestamp END_DATE;
+    private int BRAND_ID;
+    private String CURR;
+    private Double PRICE;
+    private int PRICE_LIST;
+    private int PRIORITY;
+    private int PRODUCT_ID;
+
+    public PriceEntity() {
+    }
 
     public PriceEntity(
-            Date START_DATE,
-            Date END_DATE,
+            Integer ID,
+            Timestamp START_DATE,
+            Timestamp END_DATE,
             int BRAND_ID,
             String CURR,
             Double PRICE,
@@ -31,6 +36,7 @@ public class PriceEntity {
             int PRIORITY,
             int PRODUCT_ID
     ) {
+        this.ID = ID;
         this.START_DATE = START_DATE;
         this.END_DATE = END_DATE;
         this.BRAND_ID = BRAND_ID;
