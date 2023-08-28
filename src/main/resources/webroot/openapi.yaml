@@ -31,8 +31,8 @@ paths:
           in: query
           required: true
         - examples:
-          Brand ID:
-            value: 1
+            Brand ID:
+              value: 1
           name: brand_id
           description: Identificador de cadena
           schema:
@@ -67,7 +67,7 @@ paths:
                 type: string
               examples:
                 Example:
-                  value: 'La fecha: 2023-08-24T00:00:00no respeta un patron valido. (yyyy-MM-dd HH:mm:ss)'
+                  value: 'La fecha: 2023-08-24T00:00:00 no respeta un patron valido. (yyyy-MM-dd HH:mm:ss)'
           description: When the date format is not correct
       operationId: getPrice
       summary: Return final price to apply.

@@ -31,10 +31,15 @@ public class PriceHandler {
 			@RequestParam int brand_id
 	) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
 			Date parsedDate = validateDate(application_date, dateFormat);
 
 			PriceResult price = actions.getPrice().invoke(parsedDate, brand_id, product_id);
 			return ResponseEntity.ok(price.toContract());
+		} catch (InvalidDateFormat invalidDateFormat) {
+			return new ResponseEntity<>(invalidDateFormat.getMessage(), invalidDateFormat.getStatus());
+		} catch (PriceNotFoundException priceNotFoundException) {
+			return new ResponseEntity<>(priceNotFoundException.getMessage(), priceNotFoundException.getStatus());
 		}
 	}
 
