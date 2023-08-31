@@ -23,7 +23,7 @@ public class PriceRepositoryImpl implements PriceRepository {
 
     @Transactional
     public PriceEntity getPriceBy(Date applicationDate, int productId, int brandId) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss");
         String formattedDate = dateFormat.format(applicationDate);
 
         List<PriceEntity> priceEntities = jpaPriceRepository.getPriceBy(formattedDate, productId, brandId);
