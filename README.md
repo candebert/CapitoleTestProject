@@ -103,3 +103,19 @@ Endpoint para obtener el precio de un producto por id, brand id y application da
     "price": 35.50
 }
  ```
+
+---
+
+## Incializar el proyecto:
+
+Correr el siguiente comando en la carpeta principal del proyecto: .../CapitoleTestProject/
+
+```
+mvnw.cmd clean install
+```
+
+Una vez instalado maven wrapper. Levantar el proyecto:
+
+```
+./mvnw spring-boot:run
+```
